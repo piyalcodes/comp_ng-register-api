@@ -1,0 +1,93 @@
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"  >
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"  >
+
+
+<script src="jquery-1.9.1.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </head>
+  <script src="http://localhost:8082/int/phpAPI/angular.min.js"></script>
+  <body ng-controller="MyCtrl1">
+    <form class="form-horizontal" name="formInfo" id="formInfo" role="form" >
+      <div class="form-group">
+        <label for="inputName3" class="col-sm-2 control-label"
+        >Name</label>
+        <div class="col-sm-4">
+          <input class="form-control" id="inputName3" placeholder="Name" ng-model="Name" required >
+          <span ng-show="nameRequired">{{nameRequired}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-4">
+          <input class="form-control" id="inputEmail3" placeholder="Email"  ng-model="Email" required  ><span ng-show="emailRequired">{{emailRequired}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-4">
+          <input class="form-control" id="inputPassword3" type="password" placeholder="Password"  ng-model="Password" required  ><span ng-show="passwordRequired">{{passwordRequired}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-success" ng-click="saveData()">Sign up</button>
+        </div>
+      </div>
+    </form>
+ 
+    <script type="text/javascript">
+    
+   var myapp =  angular.module('myApp', [])
+  myapp.controller('MyCtrl1', function($scope, $http) {
+    $scope.formInfo = {};
+	var data = "";
+	
+	var action = "submit.php";
+    $scope.saveData = function() {
+		var error = false;
+      $scope.nameRequired = '';
+      $scope.emailRequired = '';
+      $scope.passwordRequired = '';
+
+ 
+      if (!$scope.Name) {
+        	$scope.nameRequired = 'Name Required';
+			if(error == false) { error = true; }
+      }
+
+      if (!$scope.Email) {
+       		$scope.emailRequired = 'Email Required';
+			if(error == false) { error = true; }
+      }
+
+      if (!$scope.Password) {
+        	$scope.passwordRequired = 'Password Required';
+			if(error == false) { error = true; }
+      } 
+		data = { name: 'ppppp', email : 'test email' };
+		
+              
+               
+	  	if(error == false) { 
+		
+			$http.post(action, data)
+            .success(function (data) {
+					alert(data);		  
+            });  
+		}
+    };
+  })
+	
+    </script>
+  </body>
+</html>
